@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <style>html, body {margin:0; padding:0; height: 100%; overflow: hidden;}</style>
+    <title>App</title>
+</head>
+<body>
+
+    <example-component></example-component>
+
+    <script type='module'>
+        'use strict';
+        
+        import { DefineCustomComponents } from './app.js';
+        DefineCustomComponents();
+
+        fetch('./app.wasm')
+        .then(response => response.arrayBuffer())
+        .then(buffer => WebAssembly.instantiate(buffer))
+        .then(wasm => console.log(wasm.instance.exports.UNION(1,2)));       
+    </script>
+
+</body>
+</html>
